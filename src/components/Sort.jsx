@@ -1,13 +1,19 @@
 import { useState } from 'react';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { changeSort } from '../redux/slices/sortSlice';
+
+import { sortingTypes } from '../variables';
+
 function Sort() {
-  const [activeSort, setActiveSort] = useState(0);
+  // const [activeSort, setActiveSort] = useState(0);
   const [openSortMenu, setOpenSortMenu] = useState(false);
 
-  const sortingTypes = ['популярности', 'цене', 'алфавиту'];
+  const activeSort = useSelector((state) => state.sort.activeSort);
+  const dispatch = useDispatch();
 
   const onClickSortItem = (i) => {
-    setActiveSort(i);
+    dispatch(changeSort(i));
     setOpenSortMenu(false);
   };
 
@@ -26,7 +32,7 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpenSortMenu(!openSortMenu)}>{sortingTypes[activeSort]}</span>
+        <span onClick={() => setOpenSortMenu(!openSortMenu)}>{sortingTypes[activeSort].name}</span>
       </div>
       {openSortMenu && (
         <div className="sort__popup">
@@ -36,7 +42,7 @@ function Sort() {
                 onClick={() => onClickSortItem(i)}
                 className={activeSort === i ? 'active' : ''}
                 key={i}>
-                {sortingType}
+                {sortingType.name}
               </li>
             ))}
           </ul>
