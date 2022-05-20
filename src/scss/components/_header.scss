@@ -29,4 +29,51 @@
       color: #7b7b7b;
     }
   }
+
+  &__search {
+    position: relative;
+    margin: 0 20px;
+  }
+
+  &__search-icon {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    fill: #7b7b7b;
+  }
+
+  &__search-delete {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50% + 4);
+    width: 20px;
+    height: 20px;
+    background: none;
+    border: none;
+
+    &:hover {
+      & svg {
+        fill: #000000;
+      }
+    }
+  }
+
+  &__delete-icon {
+    fill: #7b7b7b;
+    width: 16px;
+    height: 16px;
+  }
+
+  &__search-input {
+    line-height: 23px;
+    padding: 12px 45px;
+    width: 100%;
+    border-radius: 30px;
+    font-family: 'Nunito', Roboto, system-ui, Tahoma, sans-serif;
+    font-size: 18px;
+  }
 }
