@@ -12,9 +12,7 @@ function Home() {
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const activeSort = useSelector((state) => state.sort.activeSort);
-  const activeFilter = useSelector((state) => state.filter.activeFilter);
-  const searchText = useSelector((state) => state.search.searchText);
+  const { activeFilter, searchText, activeSort } = useSelector((state) => state.filter);
 
   useEffect(() => {
     setIsLoading(true);

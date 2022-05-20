@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { changeSearch } from '../redux/slices/searchSlice';
+import { changeSearch } from '../redux/slices/filterSlice';
 
 function Header() {
-  const searchText = useSelector((state) => state.search.searchText);
+  const searchText = useSelector((state) => state.filter.searchText);
   const dispatch = useDispatch();
 
   return (

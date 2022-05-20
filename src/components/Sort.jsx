@@ -1,15 +1,14 @@
 import { useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { changeSort } from '../redux/slices/sortSlice';
+import { changeSort } from '../redux/slices/filterSlice';
 
 import { sortingTypes } from '../variables';
 
 function Sort() {
-  // const [activeSort, setActiveSort] = useState(0);
   const [openSortMenu, setOpenSortMenu] = useState(false);
 
-  const activeSort = useSelector((state) => state.sort.activeSort);
+  const activeSort = useSelector((state) => state.filter.activeSort);
   const dispatch = useDispatch();
 
   const onClickSortItem = (i) => {

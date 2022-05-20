@@ -5,7 +5,6 @@ import { changeFilter } from '../redux/slices/filterSlice';
 function Categories() {
   const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-  // const [activeIndex, setActiveIndex] = useState(0);
   const activeFilter = useSelector((state) => state.filter.activeFilter);
   const dispatch = useDispatch();
 
