@@ -19,7 +19,7 @@ function Home() {
     const sort = `?sortBy=${sortingTypes[activeSort].sortProperty}&order=asc`; //desc
     const filter = activeFilter && `&category=${activeFilter}`;
     const search = searchText && `&title=${searchText}`;
-    console.log(`https://62815ab29fac04c65404537c.mockapi.io/pizzas${sort}${filter}${search}`);
+
     fetch(`https://62815ab29fac04c65404537c.mockapi.io/pizzas${sort}${filter}${search}`)
       .then((res) => res.json())
       .then((data) => {
