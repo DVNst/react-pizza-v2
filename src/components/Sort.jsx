@@ -1,20 +1,14 @@
 import { useState } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { changeSort } from '../redux/slices/filterSlice';
+import { useSelector } from 'react-redux';
 
 import { sortingTypes } from '../variables';
+import SortMenu from './SortMenu';
 
 function Sort() {
   const [openSortMenu, setOpenSortMenu] = useState(false);
 
   const activeSort = useSelector((state) => state.filter.activeSort);
-  const dispatch = useDispatch();
-
-  const onClickSortItem = (i) => {
-    dispatch(changeSort(i));
-    setOpenSortMenu(false);
-  };
 
   return (
     <div className="sort">
@@ -33,20 +27,7 @@ function Sort() {
         <b>Сортировка по:</b>
         <span onClick={() => setOpenSortMenu(!openSortMenu)}>{sortingTypes[activeSort].name}</span>
       </div>
-      {openSortMenu && (
-        <div className="sort__popup">
-          <ul>
-            {sortingTypes.map((sortingType, i) => (
-              <li
-                onClick={() => onClickSortItem(i)}
-                className={activeSort === i ? 'active' : ''}
-                key={i}>
-                {sortingType.name}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {openSortMenu && <SortMenu setOpenSortMenu={setOpenSortMenu}/>}
     </div>
   );
 }
