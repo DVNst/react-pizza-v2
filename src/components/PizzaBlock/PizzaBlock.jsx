@@ -12,7 +12,9 @@ function PizzaBlock({ id, imageUrl, title, types, sizes, price }) {
   const dispatch = useDispatch();
 
   const clickAddPizza = () => {
-    dispatch(addPizza({ id, type: activeTypePizza, size: activeSizePizza, price }));
+    dispatch(
+      addPizza({ id, imageUrl, title, type: activeTypePizza, size: sizes[activeSizePizza], price }),
+    );
   };
 
   const pizzasCard = useSelector((state) => state.card.pizzas.filter((pizza) => pizza.id === id));

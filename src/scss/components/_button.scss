@@ -87,6 +87,36 @@
     }
   }
 
+  &--disabled {
+    border-color: darken($color: $gray-line, $amount: 10);
+
+    &,
+    span {
+      color: darken($color: $gray-line, $amount: 15);
+    }
+
+    svg {
+      path {
+        fill: darken($color: $gray-line, $amount: 15);
+      }
+    }
+
+    &:hover {
+      background-color: transparent;
+
+      &,
+      span {
+        color: darken($color: $gray-line, $amount: 15);
+      }
+
+      svg {
+        path {
+          fill: darken($color: $gray-line, $amount: 15);
+        }
+      }
+    }
+  }
+
   &__delimiter {
     width: 1px;
     height: 25px;
