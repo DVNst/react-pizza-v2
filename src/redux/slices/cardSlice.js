@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  pizzas: []
+  pizzas: [],
+  totalCount: 0,
+  totalPrice: 0,
 };
 
 export const cardSlice = createSlice({
@@ -9,37 +11,19 @@ export const cardSlice = createSlice({
   initialState,
   reducers: {
     addPizza: (state, action) => {
-      // const {id, type, size} = action.payload;
-      // const finDuplicatePizza = state.pizzas.findIndex((pizza) => pizza.id === id && pizza.type === type && pizza.size === size);
-      // if (finDuplicatePizza != -1) {
-      //   console.log('find');
-      //   console.log(finDuplicatePizza);
-      //   state.pizzas[finDuplicatePizza].counter += 1;
-      // } else {
-      //   console.log('[...state.pizzas, {...action.payload, counter: 1}', [...state.pizzas, {...action.payload, counter: 1}]);
-      //   state.pizzas = [...state.pizzas, {...action.payload, counter: 1}];
-      // }
-      // console.log('state.pizzas', {...state.pizzas});
-
-      // const duplicatePizzaID = state.pizzas.findIndex(pizza => pizza.id === action.payload.id);
-      
-
-      // if (duplicatePizzaID != -1) {
-      //   console.log('duplicatePizzaID', duplicatePizzaID);
-      //   state.pizzas = 
-      // } else {
-      //   state.pizzas = [...state.pizzas, {...action.payload, counter: 1}];
-      // }
-      // console.log('state.pizzas', state.pizzas);
-
-      const fintItem = state.pizzas.find((obj) => obj.id === action.payload.id);
+      const { id, type, size } = action.payload;
+      const fintItem = state.pizzas.find(
+        (pizza) => pizza.id === id && pizza.type === type && pizza.size === size,
+      );
 
       if (fintItem) {
-        fintItem.counter += 1;
+        fintItem.count += 1;
       } else {
-        state.pizzas.push({...action.payload, counter: 1});
+        state.pizzas.push({ ...action.payload, count: 1 });
       }
-      console.log('state.pizzas', state.pizzas);
+
+      state.totalCount += 1;
+      state.totalPrice += action.payload.price;
     },
   },
 });

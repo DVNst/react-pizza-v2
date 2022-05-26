@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { addPizza } from '../../redux/slices/cardSlice';
 
@@ -12,8 +12,11 @@ function PizzaBlock({ id, imageUrl, title, types, sizes, price }) {
   const dispatch = useDispatch();
 
   const clickAddPizza = () => {
-    dispatch(addPizza({id, type: activeTypePizza, size: activeSizePizza, price}));
+    dispatch(addPizza({ id, type: activeTypePizza, size: activeSizePizza, price }));
   };
+
+  const pizzasCard = useSelector((state) => state.card.pizzas.filter((pizza) => pizza.id === id));
+  const count = pizzasCard.reduce((sum, pizza) => sum + pizza.count, 0);
 
   return (
     <div className="pizza-block">
@@ -56,7 +59,7 @@ function PizzaBlock({ id, imageUrl, title, types, sizes, price }) {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
+          <i>{count}</i>
         </div>
       </div>
     </div>
