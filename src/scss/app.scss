@@ -35,6 +35,11 @@ body {
     align-items: center;
     justify-content: space-between;
   }
+
+  &__error {
+    margin: 100px auto;
+    text-align: center;
+  }
 }
 
 .container {
