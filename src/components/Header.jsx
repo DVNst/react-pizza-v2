@@ -1,10 +1,12 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { selectCart } from '../redux/slices/cardSlice';
+
 import Search from './Search';
 
 function Header() {
-  const { totalCount, totalPrice } = useSelector((state) => state.card);
+  const { totalCount, totalPrice } = useSelector(selectCart);
 
   return (
     <div className="header">

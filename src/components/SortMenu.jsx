@@ -1,15 +1,15 @@
-import { useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { changeSort } from "../redux/slices/filterSlice";
+import { changeSort, selectActiveSort } from '../redux/slices/filterSlice';
 
-import { sortingTypes } from "../variables";
+import { sortingTypes } from '../variables';
 
 function SortMenu({ setOpenSortMenu }) {
-  const activeSort = useSelector((state) => state.filter.activeSort);
+  const activeSort = useSelector(selectActiveSort);
   const dispatch = useDispatch();
 
- const sortMenuRef = useRef();
+  const sortMenuRef = useRef();
 
   useEffect(() => {
     const handlingMouseClick = (evt) => {
@@ -28,16 +28,14 @@ function SortMenu({ setOpenSortMenu }) {
     setOpenSortMenu(false);
   };
 
-
   return (
     <div className="sort__popup" ref={sortMenuRef}>
       <ul>
         {sortingTypes.map((sortingType, i) => (
           <li
             onClick={() => onClickSortItem(i)}
-            className={activeSort === i ? "active" : ""}
-            key={i}
-          >
+            className={activeSort === i ? 'active' : ''}
+            key={i}>
             {sortingType.name}
           </li>
         ))}

@@ -56,6 +56,10 @@ export const cardSlice = createSlice({
   },
 });
 
+export const selectCart = (state) => state.card;
+export const selectCartCountPizzas = (id) => (state) =>
+  state.card.pizzas.filter((pizza) => pizza.id === id).reduce((sum, pizza) => sum + pizza.count, 0);
+
 export const { addPizza, deletePizza, clearCard, removePizza } = cardSlice.actions;
 
 export default cardSlice.reducer;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { addPizza } from '../../redux/slices/cardSlice';
+import { addPizza, selectCartCountPizzas } from '../../redux/slices/cardSlice';
 
 import { typesPizza } from '../../variables';
 
@@ -17,8 +17,7 @@ function PizzaBlock({ id, imageUrl, title, types, sizes, price }) {
     );
   };
 
-  const pizzasCard = useSelector((state) => state.card.pizzas.filter((pizza) => pizza.id === id));
-  const count = pizzasCard.reduce((sum, pizza) => sum + pizza.count, 0);
+  const count = useSelector(selectCartCountPizzas(id));
 
   return (
     <div className="pizza-block">

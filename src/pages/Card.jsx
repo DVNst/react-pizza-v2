@@ -2,13 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addPizza, deletePizza, clearCard, removePizza } from '../redux/slices/cardSlice';
+import {
+  addPizza,
+  deletePizza,
+  clearCard,
+  removePizza,
+  selectCart,
+} from '../redux/slices/cardSlice';
 
 import { typesPizza } from '../variables';
 
 function Card() {
   const dispatch = useDispatch();
-  const { pizzas, totalCount, totalPrice } = useSelector((state) => state.card);
+  const { pizzas, totalCount, totalPrice } = useSelector(selectCart);
 
   const clickClearCard = () => {
     if (window.confirm('Очистить всю корзину?')) {

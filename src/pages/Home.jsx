@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Categories from '../components/Categories';
@@ -7,11 +7,12 @@ import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import PizzaSkeleton from '../components/PizzaBlock/PizzaSkeleton';
 import ErrorBlock from '../components/ErrorBlock';
 
-import { fetchPizzasByFiltrs } from '../redux/slices/pizzasSlice';
+import { fetchPizzasByFiltrs, selectorPizzas } from '../redux/slices/pizzasSlice';
+import { selectFilters } from '../redux/slices/filterSlice';
 
 function Home() {
-  const { activeSort, activeFilter, searchText } = useSelector((state) => state.filter);
-  const { items, status } = useSelector((state) => state.pizzas);
+  const { activeSort, activeFilter, searchText } = useSelector(selectFilters);
+  const { items, status } = useSelector(selectorPizzas);
 
   const dispatch = useDispatch();
 

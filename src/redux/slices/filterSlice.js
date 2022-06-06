@@ -22,6 +22,11 @@ export const filterSlice = createSlice({
   },
 });
 
+export const selectFilters = (state) => state.filter;
+export const selectActiveFilter = (state) => state.filter.activeFilter;
+export const selectActiveSort = (state) => state.filter.activeSort;
+export const selectSearch = (state) => state.filter.searchText;
+
 export const { changeFilter, changeSort, changeSearch } = filterSlice.actions;
 
 export default filterSlice.reducer;
