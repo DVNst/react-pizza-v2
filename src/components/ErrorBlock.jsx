@@ -1,3 +1,5 @@
+import React from 'react';
+
 function ErrorBlock() {
   return (
     <div className="content__error">
