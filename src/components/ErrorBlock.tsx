@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ErrorBlock() {
+const ErrorBlock: React.FC = () => {
   return (
     <div className="content__error">
       <h2>

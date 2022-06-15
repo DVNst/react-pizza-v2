@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { changeFilter, selectActiveFilter } from '../redux/slices/filterSlice';
 
-function Categories() {
+const Categories: React.FC = () => {
   const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
   const activeFilter = useSelector(selectActiveFilter);

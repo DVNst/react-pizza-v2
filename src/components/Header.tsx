@@ -6,7 +6,7 @@ import { selectCart } from '../redux/slices/cardSlice';
 
 import Search from './Search';
 
-function Header() {
+const Header: React.FC = () => {
   const { totalCount, totalPrice } = useSelector(selectCart);
 
   const location = useLocation();

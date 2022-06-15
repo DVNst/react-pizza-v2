@@ -2,17 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  addPizza,
-  deletePizza,
-  clearCard,
-  removePizza,
-  selectCart,
-} from '../redux/slices/cardSlice';
+import { addPizza, deletePizza, clearCard, removePizza, selectCart } from '../redux/slices/cardSlice';
 
 import { typesPizza } from '../variables';
 
-function Card() {
+type CardPizzaItem = { id: string; imageUrl: string; title: string; type: number; size: number; price: number; count: number };
+
+const Card: React.FC = () => {
   const dispatch = useDispatch();
   const { pizzas, totalCount, totalPrice } = useSelector(selectCart);
 
@@ -22,17 +18,17 @@ function Card() {
     }
   };
 
-  const clickAddPizza = (pizza) => {
+  const clickAddPizza = (pizza: CardPizzaItem) => {
     dispatch(addPizza(pizza));
   };
 
-  const clickDeletePizza = (pizza) => {
+  const clickDeletePizza = (pizza: CardPizzaItem) => {
     if (pizza.count > 1) {
       dispatch(deletePizza(pizza));
     }
   };
 
-  const clickRemovePizza = (pizza) => {
+  const clickRemovePizza = (pizza: CardPizzaItem) => {
     dispatch(removePizza(pizza));
   };
 
@@ -113,13 +109,15 @@ function Card() {
             </div>
           </div>
           <div className="content__items">
-            {pizzas.map((pizza) => (
+            {pizzas.map((pizza: CardPizzaItem) => (
               <div
                 className="cart__item"
                 key={`${pizza.id}-${pizza.title}-${pizza.type}-${pizza.size}`}>
-                <div className="cart__item-img">
-                  <img className="pizza-block__image" src={pizza.imageUrl} alt={pizza.title} />
-                </div>
+                <Link to={`/pizza/${pizza.id}`}>
+                  <div className="cart__item-img">
+                    <img className="pizza-block__image" src={pizza.imageUrl} alt={pizza.title} />
+                  </div>
+                </Link>
                 <div className="cart__item-info">
                   <h3>{pizza.title}</h3>
                   <p>
@@ -129,9 +127,8 @@ function Card() {
                 <div className="cart__item-count">
                   <div
                     onClick={() => clickDeletePizza(pizza)}
-                    className={`button button--outline button--circle cart__item-count-minus ${
-                      pizza.count <= 1 ? 'button--disabled' : ''
-                    }`}>
+                    className={`button button--outline button--circle cart__item-count-minus ${pizza.count <= 1 ? 'button--disabled' : ''
+                      }`}>
                     <svg
                       width="10"
                       height="10"

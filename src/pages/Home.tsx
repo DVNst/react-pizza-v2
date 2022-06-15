@@ -10,13 +10,16 @@ import ErrorBlock from '../components/ErrorBlock';
 import { fetchPizzasByFiltrs, selectorPizzas } from '../redux/slices/pizzasSlice';
 import { selectFilters } from '../redux/slices/filterSlice';
 
-function Home() {
+type PizzaItem = { id: string; imageUrl: string; title: string; types: number[]; sizes: number[]; price: number };
+
+const Home: React.FC = () => {
   const { activeSort, activeFilter, searchText } = useSelector(selectFilters);
   const { items, status } = useSelector(selectorPizzas);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // @ts-ignore
     dispatch(fetchPizzasByFiltrs({ activeSort, activeFilter, searchText }));
   }, [dispatch, activeSort, activeFilter, searchText]);
 
@@ -29,7 +32,7 @@ function Home() {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         {status === 'loading' && [...new Array(6)].map((_, i) => <PizzaSkeleton key={i} />)}
-        {status === 'success' && items.map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />)}
+        {status === 'success' && items.map((pizza: PizzaItem) => <PizzaBlock {...pizza} key={pizza.id} />)}
         {status === 'error' && <ErrorBlock />}
       </div>
     </>

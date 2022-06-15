@@ -7,7 +7,7 @@ import { selectActiveSort } from '../redux/slices/filterSlice';
 
 import { sortingTypes } from '../variables';
 
-function Sort() {
+const Sort: React.FC = () => {
   const [openSortMenu, setOpenSortMenu] = useState(false);
 
   const activeSort = useSelector(selectActiveSort);
@@ -29,7 +29,8 @@ function Sort() {
         <b>Сортировка по:</b>
         <span onClick={() => setOpenSortMenu(!openSortMenu)}>{sortingTypes[activeSort].name}</span>
       </div>
-      {openSortMenu && <SortMenu setOpenSortMenu={setOpenSortMenu} />}
+      {// @ts-ignore
+        openSortMenu && <SortMenu setOpenSortMenu={setOpenSortMenu} />}
     </div>
   );
 }

@@ -5,14 +5,14 @@ import { changeSort, selectActiveSort } from '../redux/slices/filterSlice';
 
 import { sortingTypes } from '../variables';
 
-function SortMenu({ setOpenSortMenu }) {
+const SortMenu: React.FC = ({ setOpenSortMenu }: any) => {
   const activeSort = useSelector(selectActiveSort);
   const dispatch = useDispatch();
 
-  const sortMenuRef = useRef();
+  const sortMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handlingMouseClick = (evt) => {
+    const handlingMouseClick = (evt: any) => {
       if (!evt.path.includes(sortMenuRef.current)) {
         setOpenSortMenu(false);
       }
@@ -23,7 +23,7 @@ function SortMenu({ setOpenSortMenu }) {
     return () => window.removeEventListener('mousedown', handlingMouseClick);
   }, []);
 
-  const onClickSortItem = (i) => {
+  const onClickSortItem = (i: number) => {
     dispatch(changeSort(i));
     setOpenSortMenu(false);
   };

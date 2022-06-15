@@ -1,26 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
 
 import { addPizza, selectCartCountPizzas } from '../redux/slices/cardSlice';
+import { fetchPizzaByID, selectorPizzas } from '../redux/slices/pizzasSlice';
 
 import { typesPizza } from '../variables';
+const temp = { imageUrl: '', title: '', types: [], sizes: [], price: 0 };
 
-function FullPizza() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsLError] = useState(false);
-  const [pizza, setPizza] = useState({ imageUrl: '', title: '', types: [], sizes: [], price: 0 });
+type TypeItem = number;
+type SizeItem = number;
+// type PizzaItem = { id: string; imageUrl: string; title: string; types: TypeItem[]; sizes: SizeItem[]; price: number };
 
-  const { imageUrl, title, types, sizes, price } = pizza;
-
-  const { id } = useParams();
-  const navigate = useNavigate();
+const FullPizza: React.FC = () => {
+  const { items, status } = useSelector(selectorPizzas);
 
   const [activeTypePizza, setActiveTypePizza] = useState(0);
   const [activeSizePizza, setActiveSizePizza] = useState(0);
 
+  const { imageUrl, title, types, sizes, price } = items[0] ? items[0] : temp;
+
+  console.log('title', title);
+
+  const { id } = useParams();
+  const count = useSelector(selectCartCountPizzas(id));
+
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
+
+  if (status === 'error') {
+    setTimeout(() => navigate('/', { replace: false }), 2500);
+  }
+
+  useEffect(() => {
+    // @ts-ignore
+    dispatch(fetchPizzaByID({ id }));
+  }, []);
 
   const clickAddPizza = () => {
     dispatch(
@@ -28,33 +44,21 @@ function FullPizza() {
     );
   };
 
-  const count = useSelector(selectCartCountPizzas(id));
-
-  useEffect(() => {
-    axios
-      .get('https://62815ab29fac04c65404537c.mockapi.io/pizzas/' + id)
-      .then((res) => setPizza(res.data))
-      .catch(() => {
-        setIsLError(true);
-        setTimeout(() => navigate('/', { replace: false }), 2500);
-      })
-      .finally(() => setIsLoading(false));
-  }, []);
-
   return (
     <div className="container">
       <Link to="/" className="button button--black">
         <span>Вернуться назад</span>
       </Link>
-      {isLoading && <h2>Загрузка...</h2>}
-      {!isLoading && isError && <h2>ОШИБКА Загрузки!</h2>}
-      {!isLoading && !isError && (
+
+      {status === 'loading' && <h2>Загрузка...</h2>}
+      {status === 'error' && <h2>ОШИБКА Загрузки!</h2>}
+      {status === 'success' && items &&
         <>
           <h2 className="content__title">{title}</h2>
           <img className="" src={imageUrl} alt="Pizza" />
           <div className="pizza-block__selector">
             <ul>
-              {types.map((type, i) => (
+              {types.map((type: TypeItem, i: number) => (
                 <li
                   onClick={() => setActiveTypePizza(i)}
                   className={activeTypePizza === i ? 'active' : ''}
@@ -64,7 +68,7 @@ function FullPizza() {
               ))}
             </ul>
             <ul>
-              {sizes.map((size, i) => (
+              {sizes.map((size: SizeItem, i: number) => (
                 <li
                   onClick={() => setActiveSizePizza(i)}
                   className={activeSizePizza === i ? 'active' : ''}
@@ -92,9 +96,8 @@ function FullPizza() {
               <i>{count}</i>
             </div>
           </div>
-        </>
-      )}
-    </div>
+        </>}
+    </div >
   );
 }
 

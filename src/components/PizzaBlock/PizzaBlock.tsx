@@ -6,7 +6,9 @@ import { addPizza, selectCartCountPizzas } from '../../redux/slices/cardSlice';
 
 import { typesPizza } from '../../variables';
 
-function PizzaBlock({ id, imageUrl, title, types, sizes, price }) {
+type PizzaBlockProps = { id: string; imageUrl: string; title: string; types: number[]; sizes: number[]; price: number };
+
+const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, imageUrl, title, types, sizes, price }) => {
   const [activeTypePizza, setActiveTypePizza] = useState(0);
   const [activeSizePizza, setActiveSizePizza] = useState(0);
 

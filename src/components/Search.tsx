@@ -4,12 +4,12 @@ import debounce from 'lodash.debounce';
 
 import { changeSearch } from '../redux/slices/filterSlice';
 
-function Search() {
+const Search: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
 
   const dispatch = useDispatch();
 
-  const inputSearch = useRef();
+  const inputSearch = useRef<HTMLInputElement>(null);
 
   const updateSearchTextValue = useCallback(
     debounce((value) => {
@@ -18,7 +18,7 @@ function Search() {
     [],
   );
 
-  const changeSearchInput = (e) => {
+  const changeSearchInput = (e: any) => {
     setInputValue(e.target.value);
     updateSearchTextValue(e.target.value);
   };
@@ -26,10 +26,10 @@ function Search() {
   const clickSearchDelete = () => {
     setInputValue('');
     updateSearchTextValue('');
-    inputSearch.current.focus();
+    inputSearch.current?.focus();
   };
 
-  const clickPressKey = (e) => {
+  const clickPressKey = (e: any) => {
     if (e.keyCode === 27) {
       clickSearchDelete();
     }
