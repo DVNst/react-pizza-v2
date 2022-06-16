@@ -6,7 +6,7 @@ import { addPizza, deletePizza, clearCard, removePizza, selectCart } from '../re
 
 import { typesPizza } from '../variables';
 
-type CardPizzaItem = { id: string; imageUrl: string; title: string; type: number; size: number; price: number; count: number };
+// type CardPizzaItem = { id: string; imageUrl: string; title: string; type: number; size: number; price: number; count: number };
 
 const Card: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,17 +18,17 @@ const Card: React.FC = () => {
     }
   };
 
-  const clickAddPizza = (pizza: CardPizzaItem) => {
+  const clickAddPizza = (pizza: any) => {
     dispatch(addPizza(pizza));
   };
 
-  const clickDeletePizza = (pizza: CardPizzaItem) => {
+  const clickDeletePizza = (pizza: any) => {
     if (pizza.count > 1) {
       dispatch(deletePizza(pizza));
     }
   };
 
-  const clickRemovePizza = (pizza: CardPizzaItem) => {
+  const clickRemovePizza = (pizza: any) => {
     dispatch(removePizza(pizza));
   };
 
@@ -109,7 +109,7 @@ const Card: React.FC = () => {
             </div>
           </div>
           <div className="content__items">
-            {pizzas.map((pizza: CardPizzaItem) => (
+            {pizzas.map((pizza: any) => (
               <div
                 className="cart__item"
                 key={`${pizza.id}-${pizza.title}-${pizza.type}-${pizza.size}`}>

@@ -8,8 +8,8 @@ import { fetchPizzaByID, selectorPizzas } from '../redux/slices/pizzasSlice';
 import { typesPizza } from '../variables';
 const temp = { imageUrl: '', title: '', types: [], sizes: [], price: 0 };
 
-type TypeItem = number;
-type SizeItem = number;
+// type TypeItem = number;
+// type SizeItem = number;
 // type PizzaItem = { id: string; imageUrl: string; title: string; types: TypeItem[]; sizes: SizeItem[]; price: number };
 
 const FullPizza: React.FC = () => {
@@ -58,7 +58,7 @@ const FullPizza: React.FC = () => {
           <img className="" src={imageUrl} alt="Pizza" />
           <div className="pizza-block__selector">
             <ul>
-              {types.map((type: TypeItem, i: number) => (
+              {types.map((type: any, i: number) => (
                 <li
                   onClick={() => setActiveTypePizza(i)}
                   className={activeTypePizza === i ? 'active' : ''}
@@ -68,7 +68,7 @@ const FullPizza: React.FC = () => {
               ))}
             </ul>
             <ul>
-              {sizes.map((size: SizeItem, i: number) => (
+              {sizes.map((size: any, i: number) => (
                 <li
                   onClick={() => setActiveSizePizza(i)}
                   className={activeSizePizza === i ? 'active' : ''}

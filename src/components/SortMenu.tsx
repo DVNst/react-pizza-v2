@@ -1,19 +1,21 @@
-import React, { useEffect, useRef } from 'react';
+import React, { MouseEventHandler, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { changeSort, selectActiveSort } from '../redux/slices/filterSlice';
 
 import { sortingTypes } from '../variables';
 
-const SortMenu: React.FC = ({ setOpenSortMenu }: any) => {
+type SortMenuProps = { setOpenSortMenu: (value: boolean) => void; };
+
+const SortMenu: React.FC<SortMenuProps> = ({ setOpenSortMenu }) => {
   const activeSort = useSelector(selectActiveSort);
   const dispatch = useDispatch();
 
   const sortMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handlingMouseClick = (evt: any) => {
-      if (!evt.path.includes(sortMenuRef.current)) {
+    const handlingMouseClick = (evt: MouseEvent) => {
+      if (sortMenuRef.current && !evt.composedPath().includes(sortMenuRef.current)) {
         setOpenSortMenu(false);
       }
     };

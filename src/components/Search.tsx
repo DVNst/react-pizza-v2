@@ -18,7 +18,7 @@ const Search: React.FC = () => {
     [],
   );
 
-  const changeSearchInput = (e: any) => {
+  const changeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
     updateSearchTextValue(e.target.value);
   };
@@ -29,8 +29,8 @@ const Search: React.FC = () => {
     inputSearch.current?.focus();
   };
 
-  const clickPressKey = (e: any) => {
-    if (e.keyCode === 27) {
+  const clickPressKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Escape') {
       clickSearchDelete();
     }
   };
