@@ -1,3 +1,4 @@
+import { log } from 'console';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -6,7 +7,7 @@ import { addPizza, selectCartCountPizzas } from '../redux/slices/cardSlice';
 import { fetchPizzaByID, selectorPizzas } from '../redux/slices/pizzasSlice';
 
 import { typesPizza } from '../variables';
-const temp = { imageUrl: '', title: '', types: [], sizes: [], price: 0 };
+// const temp: TTemp = { imageUrl: '', title: '', types: [], sizes: [], price: 0 };
 
 // type TypeItem = number;
 // type SizeItem = number;
@@ -18,11 +19,15 @@ const FullPizza: React.FC = () => {
   const [activeTypePizza, setActiveTypePizza] = useState(0);
   const [activeSizePizza, setActiveSizePizza] = useState(0);
 
-  const { imageUrl, title, types, sizes, price } = items[0] ? items[0] : temp;
+  useEffect(() => {
+    // @ts-ignore
+    dispatch(fetchPizzaByID({ id }));
+  }, []);
 
-  console.log('title', title);
+  const _params = useParams();
+  const id = _params.id ? _params.id : '';
 
-  const { id } = useParams();
+  // const { imageUrl, title, types, sizes, price } = items[0] ? items[0] : temp;
   const count = useSelector(selectCartCountPizzas(id));
 
   const navigate = useNavigate();
@@ -33,12 +38,8 @@ const FullPizza: React.FC = () => {
     setTimeout(() => navigate('/', { replace: false }), 2500);
   }
 
-  useEffect(() => {
-    // @ts-ignore
-    dispatch(fetchPizzaByID({ id }));
-  }, []);
-
   const clickAddPizza = () => {
+    const { id, imageUrl, title, price, sizes } = items[0];
     dispatch(
       addPizza({ id, imageUrl, title, type: activeTypePizza, size: sizes[activeSizePizza], price }),
     );
@@ -52,13 +53,13 @@ const FullPizza: React.FC = () => {
 
       {status === 'loading' && <h2>Загрузка...</h2>}
       {status === 'error' && <h2>ОШИБКА Загрузки!</h2>}
-      {status === 'success' && items &&
+      {status === 'success' && items[0] &&
         <>
-          <h2 className="content__title">{title}</h2>
-          <img className="" src={imageUrl} alt="Pizza" />
+          <h2 className="content__title">{items[0].title}</h2>
+          <img className="" src={items[0].imageUrl} alt="Pizza" />
           <div className="pizza-block__selector">
             <ul>
-              {types.map((type: any, i: number) => (
+              {items[0].types.map((type, i: number) => (
                 <li
                   onClick={() => setActiveTypePizza(i)}
                   className={activeTypePizza === i ? 'active' : ''}
@@ -68,7 +69,7 @@ const FullPizza: React.FC = () => {
               ))}
             </ul>
             <ul>
-              {sizes.map((size: any, i: number) => (
+              {items[0].sizes.map((size, i: number) => (
                 <li
                   onClick={() => setActiveSizePizza(i)}
                   className={activeSizePizza === i ? 'active' : ''}
@@ -79,7 +80,7 @@ const FullPizza: React.FC = () => {
             </ul>
           </div>
           <div className="pizza-block__bottom">
-            <div className="pizza-block__price">от {price} ₽</div>
+            <div className="pizza-block__price">от {items[0].price} ₽</div>
             <div className="button button--outline button--add" onClick={clickAddPizza}>
               <svg
                 width={12}

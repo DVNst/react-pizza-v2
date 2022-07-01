@@ -11,3 +11,5 @@ export const store = configureStore({
     pizzas: pizzasSlice,
   },
 });
+
+export type TRootState = ReturnType<typeof store.getState>;

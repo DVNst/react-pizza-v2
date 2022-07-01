@@ -2,11 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addPizza, deletePizza, clearCard, removePizza, selectCart } from '../redux/slices/cardSlice';
+import { addPizza, deletePizza, clearCard, removePizza, selectCart, ICardPizzaItem } from '../redux/slices/cardSlice';
 
 import { typesPizza } from '../variables';
-
-// type CardPizzaItem = { id: string; imageUrl: string; title: string; type: number; size: number; price: number; count: number };
 
 const Card: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,17 +16,17 @@ const Card: React.FC = () => {
     }
   };
 
-  const clickAddPizza = (pizza: any) => {
+  const clickAddPizza = (pizza: ICardPizzaItem) => {
     dispatch(addPizza(pizza));
   };
 
-  const clickDeletePizza = (pizza: any) => {
+  const clickDeletePizza = (pizza: ICardPizzaItem) => {
     if (pizza.count > 1) {
       dispatch(deletePizza(pizza));
     }
   };
 
-  const clickRemovePizza = (pizza: any) => {
+  const clickRemovePizza = (pizza: ICardPizzaItem) => {
     dispatch(removePizza(pizza));
   };
 
@@ -109,7 +107,7 @@ const Card: React.FC = () => {
             </div>
           </div>
           <div className="content__items">
-            {pizzas.map((pizza: any) => (
+            {pizzas.map((pizza) => (
               <div
                 className="cart__item"
                 key={`${pizza.id}-${pizza.title}-${pizza.type}-${pizza.size}`}>
